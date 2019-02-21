@@ -1,0 +1,735 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{29EECE7E-A7DA-4424-98F8-505232CD2371}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BIGSHOPE</RootNamespace>
+    <AssemblyName>BIGSHOPE</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="ServiceStack.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Client.5.4.0\lib\net45\ServiceStack.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.5.4.0\lib\net45\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.5.4.0\lib\net45\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="Stripe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Stripe.5.4.0\lib\net45\Stripe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="admin\404.aspx" />
+    <Content Include="admin\bootstrap\css\bootstrap.css" />
+    <Content Include="admin\bootstrap\css\bootstrap.min.css" />
+    <Content Include="admin\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="admin\bootstrap\js\bootstrap.js" />
+    <Content Include="admin\bootstrap\js\bootstrap.min.js" />
+    <Content Include="admin\catagoriesrecord.aspx" />
+    <Content Include="admin\css\404.css" />
+    <Content Include="admin\css\local.css" />
+    <Content Include="admin\css\style.css" />
+    <Content Include="admin\dashboard.aspx" />
+    <Content Include="admin\font-awesome\css\font-awesome.css" />
+    <Content Include="admin\font-awesome\css\font-awesome.min.css" />
+    <Content Include="admin\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="admin\img\text.png" />
+    <Content Include="admin\js\jquery-1.10.2.min.js" />
+    <Content Include="admin\login.aspx" />
+    <Content Include="admin\manage_orders.aspx" />
+    <Content Include="admin\ourclients.aspx" />
+    <Content Include="admin\productrecord.aspx" />
+    <Content Include="admin\setupbrands.aspx" />
+    <Content Include="admin\setupgen.aspx" />
+    <Content Include="admin\setupproc.aspx" />
+    <Content Include="admin\setupproducts.aspx" />
+    <Content Include="admin\testing.aspx" />
+    <Content Include="BIGSHOPEModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BIGSHOPEModel.edmx</DependentUpon>
+      <LastGenOutput>BIGSHOPEModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BIGSHOPEModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BIGSHOPEModel.edmx</DependentUpon>
+      <LastGenOutput>BIGSHOPEModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="admin\AdminPanel.Master" />
+    <Content Include="admin\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="admin\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="admin\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="admin\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="admin\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="admin\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="admin\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="admin\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="admin\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="admin\font-awesome\less\bordered-pulled.less" />
+    <Content Include="admin\font-awesome\less\core.less" />
+    <Content Include="admin\font-awesome\less\fixed-width.less" />
+    <Content Include="admin\font-awesome\less\font-awesome.less" />
+    <Content Include="admin\font-awesome\less\icons.less" />
+    <Content Include="admin\font-awesome\less\larger.less" />
+    <Content Include="admin\font-awesome\less\list.less" />
+    <Content Include="admin\font-awesome\less\mixins.less" />
+    <Content Include="admin\font-awesome\less\path.less" />
+    <Content Include="admin\font-awesome\less\rotated-flipped.less" />
+    <Content Include="admin\font-awesome\less\spinning.less" />
+    <Content Include="admin\font-awesome\less\stacked.less" />
+    <Content Include="admin\font-awesome\less\variables.less" />
+    <Content Include="admin\font-awesome\scss\font-awesome.scss" />
+    <Content Include="admin\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="admin\font-awesome\scss\_core.scss" />
+    <Content Include="admin\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="admin\font-awesome\scss\_icons.scss" />
+    <Content Include="admin\font-awesome\scss\_larger.scss" />
+    <Content Include="admin\font-awesome\scss\_list.scss" />
+    <Content Include="admin\font-awesome\scss\_mixins.scss" />
+    <Content Include="admin\font-awesome\scss\_path.scss" />
+    <Content Include="admin\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="admin\font-awesome\scss\_spinning.scss" />
+    <Content Include="admin\font-awesome\scss\_stacked.scss" />
+    <Content Include="admin\font-awesome\scss\_variables.scss" />
+    <EntityDeploy Include="BIGSHOPEModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BIGSHOPEModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="BIGSHOPEModel.edmx.diagram">
+      <DependentUpon>BIGSHOPEModel.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.0.0.js" />
+    <Content Include="Scripts\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="user\500.aspx" />
+    <Content Include="user\503.aspx" />
+    <Content Include="user\cart.aspx" />
+    <Content Include="user\cart_empty.aspx" />
+    <Content Include="user\checkout.aspx" />
+    <Content Include="user\collection.aspx" />
+    <Content Include="user\contact.aspx" />
+    <Content Include="user\css\404.css" />
+    <Content Include="user\css\bootstrap.min.css" />
+    <Content Include="user\css\classy-nav.min.css" />
+    <Content Include="user\css\core-style.css" />
+    <Content Include="user\css\font-awesome.min.css" />
+    <Content Include="user\css\jquery-ui.min.css" />
+    <Content Include="user\css\magnific-popup.css" />
+    <Content Include="user\css\nice-select.css" />
+    <Content Include="user\css\owl.carousel.css" />
+    <Content Include="user\404.aspx" />
+    <Content Include="user\fonts\classy.svg" />
+    <Content Include="user\fonts\fontawesome-webfont.svg" />
+    <Content Include="user\img\bg-img\bbbg.jpg" />
+    <Content Include="user\img\bg-img\bg-1.jpg" />
+    <Content Include="user\img\bg-img\bgs-1.jpg" />
+    <Content Include="user\img\bg-img\bg-2.jpg" />
+    <Content Include="user\img\bg-img\bg-3.jpg" />
+    <Content Include="user\img\bg-img\bg-4.jpg" />
+    <Content Include="user\img\bg-img\bg-5.jpg" />
+    <Content Include="user\img\bg-img\bg-6.jpg" />
+    <Content Include="user\img\bg-img\bg-7.jpg" />
+    <Content Include="user\img\bg-img\bg-8.jpg" />
+    <Content Include="user\img\bg-img\blog1.jpg" />
+    <Content Include="user\img\bg-img\blog2.jpg" />
+    <Content Include="user\img\bg-img\blog3.jpg" />
+    <Content Include="user\img\bg-img\blog4.jpg" />
+    <Content Include="user\img\bg-img\blog5.jpg" />
+    <Content Include="user\img\bg-img\blog6.jpg" />
+    <Content Include="user\img\bg-img\breadcumb.jpg" />
+    <Content Include="user\img\bg-img\breadcumb2.jpg" />
+    <Content Include="user\img\bg-img\bgcover.jpg" />
+    <Content Include="user\img\bg-img\rp1.jpg" />
+    <Content Include="user\img\bg-img\rp2.jpg" />
+    <Content Include="user\img\bg-img\rp3.jpg" />
+    <Content Include="user\img\bg-img\rp4.jpg" />
+    <Content Include="user\img\core-img\arrow-down.svg" />
+    <Content Include="user\img\core-img\arrow-left.svg" />
+    <Content Include="user\img\core-img\arrow-right.svg" />
+    <Content Include="user\img\core-img\arrow-up.svg" />
+    <Content Include="user\img\core-img\bag.svg" />
+    <Content Include="user\img\core-img\brand1.png" />
+    <Content Include="user\img\core-img\brand2.png" />
+    <Content Include="user\img\core-img\brand3.png" />
+    <Content Include="user\img\core-img\brand4.png" />
+    <Content Include="user\img\core-img\brand5.png" />
+    <Content Include="user\img\core-img\brand6.png" />
+    <Content Include="user\img\core-img\cancel.svg" />
+    <Content Include="user\img\core-img\favicon.ico" />
+    <Content Include="user\img\core-img\heart-fill.svg" />
+    <Content Include="user\img\core-img\heart.svg" />
+    <Content Include="user\img\core-img\logo.png" />
+    <Content Include="user\img\core-img\logo2.png" />
+    <Content Include="user\img\core-img\long-arrow-left.svg" />
+    <Content Include="user\img\core-img\long-arrow-right.svg" />
+    <Content Include="user\img\core-img\pin.png" />
+    <Content Include="user\img\core-img\search.svg" />
+    <Content Include="user\img\core-img\user.svg" />
+    <Content Include="user\img\core-img\view.svg" />
+    <Content Include="user\img\product-img\product-1.jpg" />
+    <Content Include="user\img\product-img\product-2.jpg" />
+    <Content Include="user\img\product-img\product-3.jpg" />
+    <Content Include="user\img\product-img\product-4.jpg" />
+    <Content Include="user\img\product-img\product-5.jpg" />
+    <Content Include="user\img\product-img\product-6.jpg" />
+    <Content Include="user\img\product-img\product-7.jpg" />
+    <Content Include="user\img\product-img\product-8.jpg" />
+    <Content Include="user\img\product-img\product-9.jpg" />
+    <Content Include="user\img\product-img\product-big-1.jpg" />
+    <Content Include="user\img\product-img\product-big-2.jpg" />
+    <Content Include="user\img\product-img\product-big-3.jpg" />
+    <Content Include="user\img\text.png" />
+    <Content Include="user\index.aspx" />
+    <Content Include="user\js\active.js" />
+    <Content Include="user\js\bootstrap.min.js" />
+    <Content Include="user\js\classy-nav.min.js" />
+    <Content Include="user\js\jquery\jquery-2.2.4.min.js" />
+    <Content Include="user\js\map-active.js" />
+    <Content Include="user\js\plugins.js" />
+    <Content Include="user\js\popper.min.js" />
+    <Content Include="user\login.aspx" />
+    <Content Include="user\privacy_agreement.aspx" />
+    <Content Include="user\profile.aspx" />
+    <Content Include="user\singleproduct.aspx" />
+    <Content Include="user\testing.aspx" />
+    <Content Include="user\thanks_for_shopping.aspx" />
+    <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Site.Mobile.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="addToCart_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="adminLogin_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="admin\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\AdminPanel.Master.cs">
+      <DependentUpon>AdminPanel.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\AdminPanel.Master.designer.cs">
+      <DependentUpon>AdminPanel.Master</DependentUpon>
+    </Compile>
+    <Compile Include="admin\catagoriesrecord.aspx.cs">
+      <DependentUpon>catagoriesrecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\catagoriesrecord.aspx.designer.cs">
+      <DependentUpon>catagoriesrecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\manage_orders.aspx.cs">
+      <DependentUpon>manage_orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\manage_orders.aspx.designer.cs">
+      <DependentUpon>manage_orders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\ourclients.aspx.cs">
+      <DependentUpon>ourclients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\ourclients.aspx.designer.cs">
+      <DependentUpon>ourclients.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\productrecord.aspx.cs">
+      <DependentUpon>productrecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\productrecord.aspx.designer.cs">
+      <DependentUpon>productrecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\setupbrands.aspx.cs">
+      <DependentUpon>setupbrands.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\setupbrands.aspx.designer.cs">
+      <DependentUpon>setupbrands.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\setupgen.aspx.cs">
+      <DependentUpon>setupgen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\setupgen.aspx.designer.cs">
+      <DependentUpon>setupgen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\setupproc.aspx.cs">
+      <DependentUpon>setupproc.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\setupproc.aspx.designer.cs">
+      <DependentUpon>setupproc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\setupproducts.aspx.cs">
+      <DependentUpon>setupproducts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\setupproducts.aspx.designer.cs">
+      <DependentUpon>setupproducts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\testing.aspx.cs">
+      <DependentUpon>testing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\testing.aspx.designer.cs">
+      <DependentUpon>testing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BIGSHOPEModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BIGSHOPEModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BIGSHOPEModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BIGSHOPEModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BIGSHOPEModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EncDec.cs" />
+    <Compile Include="fn_Split_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getOrder_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="loginClient_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="loginCustomer_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="loginUser_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="searchProducts_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="searchProduct_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showBrands_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showClients_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showCustomers_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showGen_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showPrdByBrnds_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showProcessor_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showProdByBrnds_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showProdByGen_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showProdByProc_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showProdDetails_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="showProducts_Result.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="tblBrand.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCustomer.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblGen.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblLogin.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOrder.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProcessor.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProduct.cs">
+      <DependentUpon>BIGSHOPEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user\500.aspx.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\500.aspx.designer.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\503.aspx.cs">
+      <DependentUpon>503.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\503.aspx.designer.cs">
+      <DependentUpon>503.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\cart.aspx.cs">
+      <DependentUpon>cart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\cart.aspx.designer.cs">
+      <DependentUpon>cart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\cart_empty.aspx.cs">
+      <DependentUpon>cart_empty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\cart_empty.aspx.designer.cs">
+      <DependentUpon>cart_empty.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\checkout.aspx.cs">
+      <DependentUpon>checkout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\checkout.aspx.designer.cs">
+      <DependentUpon>checkout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\collection.aspx.cs">
+      <DependentUpon>collection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\collection.aspx.designer.cs">
+      <DependentUpon>collection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\contact.aspx.cs">
+      <DependentUpon>contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\contact.aspx.designer.cs">
+      <DependentUpon>contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\privacy_agreement.aspx.cs">
+      <DependentUpon>privacy_agreement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\privacy_agreement.aspx.designer.cs">
+      <DependentUpon>privacy_agreement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\profile.aspx.cs">
+      <DependentUpon>profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\profile.aspx.designer.cs">
+      <DependentUpon>profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\singleproduct.aspx.cs">
+      <DependentUpon>singleproduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\singleproduct.aspx.designer.cs">
+      <DependentUpon>singleproduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\testing.aspx.cs">
+      <DependentUpon>testing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\testing.aspx.designer.cs">
+      <DependentUpon>testing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\thanks_for_shopping.aspx.cs">
+      <DependentUpon>thanks_for_shopping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\thanks_for_shopping.aspx.designer.cs">
+      <DependentUpon>thanks_for_shopping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="user\UserPanel.Master.cs">
+      <DependentUpon>UserPanel.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user\UserPanel.Master.designer.cs">
+      <DependentUpon>UserPanel.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.0.0.min.map" />
+    <Content Include="user\UserPanel.Master" />
+    <Content Include="user\css\core-style.css.map" />
+    <Content Include="user\fonts\classy.eot" />
+    <Content Include="user\fonts\classy.ttf" />
+    <Content Include="user\fonts\classy.woff" />
+    <Content Include="user\fonts\fontawesome-webfont.eot" />
+    <Content Include="user\fonts\fontawesome-webfont.ttf" />
+    <Content Include="user\fonts\fontawesome-webfont.woff" />
+    <Content Include="user\fonts\fontawesome-webfont.woff2" />
+    <Content Include="user\fonts\FontAwesome.otf" />
+    <Content Include="user\scss\style.scss" />
+    <Content Include="user\scss\_mixin.scss" />
+    <Content Include="user\scss\_responsive.scss" />
+    <Content Include="user\scss\_theme_color.scss" />
+    <Content Include="user\scss\_variables.scss" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>32591</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:32591/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,1047 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bigshopeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBrands">
+          <Key>
+            <PropertyRef Name="brnd_id" />
+          </Key>
+          <Property Name="brnd_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="brnd_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="brnd_desc" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_phone" Type="varchar" MaxLength="50" />
+          <Property Name="customer_address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="customer_city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_state" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_zip" Type="int" Nullable="false" />
+          <Property Name="customer_password" Type="varchar" MaxLength="50" />
+          <Property Name="customer_stripe_id" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblGen">
+          <Key>
+            <PropertyRef Name="gen_id" />
+          </Key>
+          <Property Name="gen_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gen_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="gen_desc" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblLogin">
+          <Key>
+            <PropertyRef Name="adminID" />
+          </Key>
+          <Property Name="adminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adminName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="adminPassword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="adminStatus" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_prod_id" Type="int" Nullable="false" />
+          <Property Name="order_total_amount" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="order_time" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProcessor">
+          <Key>
+            <PropertyRef Name="proc_id" />
+          </Key>
+          <Property Name="proc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proc_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="proc_desc" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblProducts">
+          <Key>
+            <PropertyRef Name="prod_id" />
+          </Key>
+          <Property Name="prod_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="prod_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prod_desc" Type="varchar" MaxLength="50" />
+          <Property Name="prod_price" Type="int" Nullable="false" />
+          <Property Name="prod_image" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prod_qnty" Type="int" Nullable="false" />
+          <Property Name="prod_ram" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="brand_key" Type="int" Nullable="false" />
+          <Property Name="processor_key" Type="int" Nullable="false" />
+          <Property Name="gen_key" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblProducts_tblBrands">
+          <End Role="tblBrands" Type="Self.tblBrands" Multiplicity="1" />
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBrands">
+              <PropertyRef Name="brnd_id" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="brand_key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblGen">
+          <End Role="tblGen" Type="Self.tblGen" Multiplicity="1" />
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGen">
+              <PropertyRef Name="gen_id" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="gen_key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblProcessor">
+          <End Role="tblProcessor" Type="Self.tblProcessor" Multiplicity="1" />
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProcessor">
+              <PropertyRef Name="proc_id" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="processor_key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="addBrands" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="brndName" Type="varchar" Mode="In" />
+          <Parameter Name="brndDesc" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addGenration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="genName" Type="varchar" Mode="In" />
+          <Parameter Name="genDesc" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="procName" Type="varchar" Mode="In" />
+          <Parameter Name="procDesc" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="desc" Type="varchar" Mode="In" />
+          <Parameter Name="price" Type="varchar" Mode="In" />
+          <Parameter Name="img" Type="varchar" Mode="In" />
+          <Parameter Name="qnty" Type="int" Mode="In" />
+          <Parameter Name="ram" Type="varchar" Mode="In" />
+          <Parameter Name="brand" Type="int" Mode="In" />
+          <Parameter Name="process" Type="int" Mode="In" />
+          <Parameter Name="gen" Type="int" Mode="In" />
+        </Function>
+        <Function Name="addToCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="itemList" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="adminLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="adminName" Type="varchar" Mode="In" />
+          <Parameter Name="adminPassword" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="deleteBrnd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="brndid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deleteCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deleteGen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="genId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deleteProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="procId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deleteProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="prdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fn_Split" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="delimiter" Type="varchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="position" Type="int" Nullable="false" />
+                <Property Name="value" Type="varchar" MaxLength="8000" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="format_currency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="monetary_value" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="getOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="loginCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="pass" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="regCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="surname" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="address" Type="varchar" Mode="In" />
+          <Parameter Name="city" Type="varchar" Mode="In" />
+          <Parameter Name="state" Type="varchar" Mode="In" />
+          <Parameter Name="zip" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="stripeid" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="searchProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="prodName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="searchProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="prodName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="showBrands" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="showCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="showGen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="showPrdByBrnds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="showProcessor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="showProdByBrnds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="showProdByGen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="showProdByProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="showProdDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="prodID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="showProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="bigshopeModelStoreContainer">
+          <EntitySet Name="tblBrands" EntityType="Self.tblBrands" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGen" EntityType="Self.tblGen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLogin" EntityType="Self.tblLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProcessor" EntityType="Self.tblProcessor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProducts" EntityType="Self.tblProducts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblProducts_tblBrands" Association="Self.FK_tblProducts_tblBrands">
+            <End Role="tblBrands" EntitySet="tblBrands" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblGen" Association="Self.FK_tblProducts_tblGen">
+            <End Role="tblGen" EntitySet="tblGen" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblProcessor" Association="Self.FK_tblProducts_tblProcessor">
+            <End Role="tblProcessor" EntitySet="tblProcessor" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bigshopeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblBrand">
+          <Key>
+            <PropertyRef Name="brnd_id" />
+          </Key>
+          <Property Name="brnd_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="brnd_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="brnd_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProducts_tblBrands" FromRole="tblBrands" ToRole="tblProducts" />
+        </EntityType>
+        <EntityType Name="tblGen">
+          <Key>
+            <PropertyRef Name="gen_id" />
+          </Key>
+          <Property Name="gen_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gen_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gen_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProducts_tblGen" FromRole="tblGen" ToRole="tblProducts" />
+        </EntityType>
+        <EntityType Name="tblLogin">
+          <Key>
+            <PropertyRef Name="adminID" />
+          </Key>
+          <Property Name="adminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adminPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adminStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblProcessor">
+          <Key>
+            <PropertyRef Name="proc_id" />
+          </Key>
+          <Property Name="proc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proc_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="proc_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProducts_tblProcessor" FromRole="tblProcessor" ToRole="tblProducts" />
+        </EntityType>
+        <EntityType Name="tblProduct">
+          <Key>
+            <PropertyRef Name="prod_id" />
+          </Key>
+          <Property Name="prod_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prod_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prod_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prod_price" Type="Int32" Nullable="false" />
+          <Property Name="prod_image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prod_qnty" Type="Int32" Nullable="false" />
+          <Property Name="prod_ram" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="brand_key" Type="Int32" Nullable="false" />
+          <Property Name="processor_key" Type="Int32" Nullable="false" />
+          <Property Name="gen_key" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblBrand" Relationship="Self.FK_tblProducts_tblBrands" FromRole="tblProducts" ToRole="tblBrands" />
+          <NavigationProperty Name="tblGen" Relationship="Self.FK_tblProducts_tblGen" FromRole="tblProducts" ToRole="tblGen" />
+          <NavigationProperty Name="tblProcessor" Relationship="Self.FK_tblProducts_tblProcessor" FromRole="tblProducts" ToRole="tblProcessor" />
+        </EntityType>
+        <Association Name="FK_tblProducts_tblBrands">
+          <End Role="tblBrands" Type="Self.tblBrand" Multiplicity="1" />
+          <End Role="tblProducts" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBrands">
+              <PropertyRef Name="brnd_id" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="brand_key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblGen">
+          <End Role="tblGen" Type="Self.tblGen" Multiplicity="1" />
+          <End Role="tblProducts" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGen">
+              <PropertyRef Name="gen_id" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="gen_key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProducts_tblProcessor">
+          <End Role="tblProcessor" Type="Self.tblProcessor" Multiplicity="1" />
+          <End Role="tblProducts" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProcessor">
+              <PropertyRef Name="proc_id" />
+            </Principal>
+            <Dependent Role="tblProducts">
+              <PropertyRef Name="processor_key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bigshopeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblBrands" EntityType="Self.tblBrand" />
+          <EntitySet Name="tblGens" EntityType="Self.tblGen" />
+          <EntitySet Name="tblLogins" EntityType="Self.tblLogin" />
+          <EntitySet Name="tblProcessors" EntityType="Self.tblProcessor" />
+          <EntitySet Name="tblProducts" EntityType="Self.tblProduct" />
+          <AssociationSet Name="FK_tblProducts_tblBrands" Association="Self.FK_tblProducts_tblBrands">
+            <End Role="tblBrands" EntitySet="tblBrands" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblGen" Association="Self.FK_tblProducts_tblGen">
+            <End Role="tblGen" EntitySet="tblGens" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProducts_tblProcessor" Association="Self.FK_tblProducts_tblProcessor">
+            <End Role="tblProcessor" EntitySet="tblProcessors" />
+            <End Role="tblProducts" EntitySet="tblProducts" />
+          </AssociationSet>
+          <FunctionImport Name="addProducts">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="desc" Mode="In" Type="String" />
+            <Parameter Name="price" Mode="In" Type="String" />
+            <Parameter Name="img" Mode="In" Type="String" />
+            <Parameter Name="qnty" Mode="In" Type="Int32" />
+            <Parameter Name="ram" Mode="In" Type="String" />
+            <Parameter Name="brand" Mode="In" Type="Int32" />
+            <Parameter Name="process" Mode="In" Type="Int32" />
+            <Parameter Name="gen" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="adminLogin" ReturnType="Collection(bigshopeModel.adminLogin_Result)">
+            <Parameter Name="adminName" Mode="In" Type="String" />
+            <Parameter Name="adminPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="showBrands" ReturnType="Collection(bigshopeModel.showBrands_Result)" />
+          <FunctionImport Name="showGen" ReturnType="Collection(bigshopeModel.showGen_Result)" />
+          <FunctionImport Name="showProcessor" ReturnType="Collection(bigshopeModel.showProcessor_Result)" />
+          <FunctionImport Name="showProducts" ReturnType="Collection(bigshopeModel.showProducts_Result)" />
+          <FunctionImport Name="deleteProduct">
+          <Parameter Name="prdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="deleteBrnd">
+          <Parameter Name="brndid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="deleteGen">
+          <Parameter Name="genId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="deleteProc">
+          <Parameter Name="procId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="loginUser" ReturnType="Collection(bigshopeModel.loginUser_Result)">
+            <Parameter Name="usermail" Mode="In" Type="String" />
+            <Parameter Name="userpass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="regUser">
+            <Parameter Name="userfirst" Mode="In" Type="String" />
+            <Parameter Name="usersecond" Mode="In" Type="String" />
+            <Parameter Name="usermail" Mode="In" Type="String" />
+            <Parameter Name="userpass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addBrands">
+            <Parameter Name="brndName" Mode="In" Type="String" />
+            <Parameter Name="brndDesc" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addGenration">
+            <Parameter Name="genName" Mode="In" Type="String" />
+            <Parameter Name="genDesc" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addProc">
+            <Parameter Name="procName" Mode="In" Type="String" />
+            <Parameter Name="procDesc" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="showClients" ReturnType="Collection(bigshopeModel.showClients_Result)" />
+          <FunctionImport Name="deleteClients">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="fn_Split" IsComposable="true" ReturnType="Collection(bigshopeModel.fn_Split_Result)">
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="delimiter" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="showProdDetails" ReturnType="Collection(bigshopeModel.showProdDetails_Result)">
+          <Parameter Name="prodID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblCustomers" EntityType="bigshopeModel.tblCustomer" />
+          <FunctionImport Name="addClient">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="String" />
+            <Parameter Name="zip" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="stripeid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="loginClient" ReturnType="Collection(bigshopeModel.loginClient_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addToCart" ReturnType="Collection(bigshopeModel.addToCart_Result)">
+          <Parameter Name="itemList" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="showCustomers" ReturnType="Collection(bigshopeModel.showCustomers_Result)" />
+          <FunctionImport Name="deleteCustomer">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="loginCustomer" ReturnType="Collection(bigshopeModel.loginCustomer_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="regCustomer">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="String" />
+            <Parameter Name="zip" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="stripeid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="showPrdByBrnds" ReturnType="Collection(bigshopeModel.showPrdByBrnds_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="showProdByBrnds" ReturnType="Collection(bigshopeModel.showProdByBrnds_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="showProdByGen" ReturnType="Collection(bigshopeModel.showProdByGen_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="showProdByProc" ReturnType="Collection(bigshopeModel.showProdByProc_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="searchProduct" ReturnType="Collection(bigshopeModel.searchProduct_Result)">
+          <Parameter Name="prodName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="searchProducts" ReturnType="Collection(bigshopeModel.searchProducts_Result)">
+          <Parameter Name="prodName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getOrder" ReturnType="Collection(bigshopeModel.getOrder_Result)" />
+          <EntitySet Name="tblOrders" EntityType="bigshopeModel.tblOrder" />
+        </EntityContainer>
+        <ComplexType Name="adminLogin_Result">
+          <Property Type="Int32" Name="adminID" Nullable="false" />
+          <Property Type="String" Name="adminName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="adminPassword" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="adminStatus" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="showBrands_Result">
+          <Property Type="Int32" Name="brnd_id" Nullable="false" />
+          <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="brnd_desc" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="showGen_Result">
+          <Property Type="Int32" Name="gen_id" Nullable="false" />
+          <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="gen_desc" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="showProcessor_Result">
+          <Property Type="Int32" Name="proc_id" Nullable="false" />
+          <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="proc_desc" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="showProducts_Result">
+          <Property Type="Int32" Name="prod_id" Nullable="false" />
+          <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="prod_price" Nullable="false" />
+          <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+          <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="loginUser_Result">
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="user_first_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="user_second_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="user_email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="user_password" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="showClients_Result">
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="user_first_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="user_second_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="user_email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="user_password" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="fn_Split_Result">
+          <Property Type="Int32" Name="position" Nullable="false" />
+          <Property Type="String" Name="value" Nullable="true" MaxLength="8000" />
+        </ComplexType>
+        <ComplexType Name="showProdDetails_Result">
+          <Property Type="Int32" Name="prod_id" Nullable="false" />
+          <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="prod_price" Nullable="false" />
+          <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+          <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="brand_key" Nullable="false" />
+          <Property Type="Int32" Name="processor_key" Nullable="false" />
+          <Property Type="Int32" Name="gen_key" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="customer_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_zip" Type="Int32" Nullable="false" />
+          <Property Name="customer_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customer_stripe_id" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="loginClient_Result">
+          <Property Type="Int32" Name="customer_id" Nullable="false" />
+          <Property Type="String" Name="customer_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_surname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="customer_address" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="customer_city" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_state" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="customer_zip" Nullable="false" />
+          <Property Type="String" Name="customer_password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="customer_stripe_id" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="addToCart_Result">
+          <Property Type="Int32" Name="prod_id" Nullable="false" />
+          <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="prod_price" Nullable="false" />
+          <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+          <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="brand_key" Nullable="false" />
+          <Property Type="Int32" Name="processor_key" Nullable="false" />
+          <Property Type="Int32" Name="gen_key" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="showCustomers_Result">
+          <Property Type="Int32" Name="customer_id" Nullable="false" />
+          <Property Type="String" Name="customer_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_surname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="customer_address" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="customer_city" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_state" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="customer_zip" Nullable="false" />
+          <Property Type="String" Name="customer_password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="customer_stripe_id" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="loginCustomer_Result">
+          <Property Type="Int32" Name="customer_id" Nullable="false" />
+          <Property Type="String" Name="customer_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_surname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="customer_address" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="customer_city" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="customer_state" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="customer_zip" Nullable="false" />
+          <Property Type="String" Name="customer_password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="customer_stripe_id" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="showPrdByBrnds_Result">
+          <Property Type="Int32" Name="prod_id" Nullable="false" />
+          <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="prod_price" Nullable="false" />
+          <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+          <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="brand_key" Nullable="false" />
+          <Property Type="Int32" Name="processor_key" Nullable="false" />
+          <Property Type="Int32" Name="gen_key" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="showProdByBrnds_Result">
+          <Property Type="Int32" Name="prod_id" Nullable="false" />
+          <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="prod_price" Nullable="false" />
+          <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+          <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="showProdByGen_Result">
+          <Property Type="Int32" Name="prod_id" Nullable="false" />
+          <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="prod_price" Nullable="false" />
+          <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+          <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="showProdByProc_Result">
+          <Property Type="Int32" Name="prod_id" Nullable="false" />
+          <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="prod_price" Nullable="false" />
+          <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+          <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="searchProduct_Result">
+          <Property Type="Int32" Name="prod_id" Nullable="false" />
+          <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="prod_price" Nullable="false" />
+          <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+          <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="brand_key" Nullable="false" />
+          <Property Type="Int32" Name="processor_key" Nullable="false" />
+          <Property Type="Int32" Name="gen_key" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="searchProducts_Result">
+          <Property Type="Int32" Name="prod_id" Nullable="false" />
+          <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="prod_price" Nullable="false" />
+          <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+          <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getOrder_Result">
+          <Property Type="Int32" Name="order_id" Nullable="false" />
+          <Property Type="Int32" Name="order_prod_id" Nullable="false" />
+          <Property Type="String" Name="order_total_amount" Nullable="false" MaxLength="50" />
+          <Property Type="Binary" Name="order_time" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_prod_id" Type="Int32" Nullable="false" />
+          <Property Name="order_total_amount" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="order_time" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bigshopeModelStoreContainer" CdmEntityContainer="bigshopeEntities">
+          <EntitySetMapping Name="tblBrands">
+            <EntityTypeMapping TypeName="bigshopeModel.tblBrand">
+              <MappingFragment StoreEntitySet="tblBrands">
+                <ScalarProperty Name="brnd_id" ColumnName="brnd_id" />
+                <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+                <ScalarProperty Name="brnd_desc" ColumnName="brnd_desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGens">
+            <EntityTypeMapping TypeName="bigshopeModel.tblGen">
+              <MappingFragment StoreEntitySet="tblGen">
+                <ScalarProperty Name="gen_id" ColumnName="gen_id" />
+                <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+                <ScalarProperty Name="gen_desc" ColumnName="gen_desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLogins">
+            <EntityTypeMapping TypeName="bigshopeModel.tblLogin">
+              <MappingFragment StoreEntitySet="tblLogin">
+                <ScalarProperty Name="adminID" ColumnName="adminID" />
+                <ScalarProperty Name="adminName" ColumnName="adminName" />
+                <ScalarProperty Name="adminPassword" ColumnName="adminPassword" />
+                <ScalarProperty Name="adminStatus" ColumnName="adminStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProcessors">
+            <EntityTypeMapping TypeName="bigshopeModel.tblProcessor">
+              <MappingFragment StoreEntitySet="tblProcessor">
+                <ScalarProperty Name="proc_id" ColumnName="proc_id" />
+                <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+                <ScalarProperty Name="proc_desc" ColumnName="proc_desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProducts">
+            <EntityTypeMapping TypeName="bigshopeModel.tblProduct">
+              <MappingFragment StoreEntitySet="tblProducts">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+                <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+                <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="addProducts" FunctionName="bigshopeModel.Store.addProducts" />
+          <FunctionImportMapping FunctionImportName="adminLogin" FunctionName="bigshopeModel.Store.adminLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.adminLogin_Result">
+                <ScalarProperty Name="adminID" ColumnName="adminID" />
+                <ScalarProperty Name="adminName" ColumnName="adminName" />
+                <ScalarProperty Name="adminPassword" ColumnName="adminPassword" />
+                <ScalarProperty Name="adminStatus" ColumnName="adminStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showBrands" FunctionName="bigshopeModel.Store.showBrands">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showBrands_Result">
+                <ScalarProperty Name="brnd_id" ColumnName="brnd_id" />
+                <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+                <ScalarProperty Name="brnd_desc" ColumnName="brnd_desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showGen" FunctionName="bigshopeModel.Store.showGen">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showGen_Result">
+                <ScalarProperty Name="gen_id" ColumnName="gen_id" />
+                <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+                <ScalarProperty Name="gen_desc" ColumnName="gen_desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showProcessor" FunctionName="bigshopeModel.Store.showProcessor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showProcessor_Result">
+                <ScalarProperty Name="proc_id" ColumnName="proc_id" />
+                <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+                <ScalarProperty Name="proc_desc" ColumnName="proc_desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showProducts" FunctionName="bigshopeModel.Store.showProducts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showProducts_Result">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+                <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+                <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="deleteProduct" FunctionName="bigshopeModel.Store.deleteProduct" />
+          <FunctionImportMapping FunctionImportName="deleteBrnd" FunctionName="bigshopeModel.Store.deleteBrnd" />
+          <FunctionImportMapping FunctionImportName="deleteGen" FunctionName="bigshopeModel.Store.deleteGen" />
+          <FunctionImportMapping FunctionImportName="deleteProc" FunctionName="bigshopeModel.Store.deleteProc" />
+          <FunctionImportMapping FunctionImportName="addBrands" FunctionName="bigshopeModel.Store.addBrands" />
+          <FunctionImportMapping FunctionImportName="addGenration" FunctionName="bigshopeModel.Store.addGenration" />
+          <FunctionImportMapping FunctionImportName="addProc" FunctionName="bigshopeModel.Store.addProc" />
+          <FunctionImportMapping FunctionImportName="fn_Split" FunctionName="bigshopeModel.Store.fn_Split">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.fn_Split_Result">
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showProdDetails" FunctionName="bigshopeModel.Store.showProdDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showProdDetails_Result">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+                <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+                <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tblCustomers">
+            <EntityTypeMapping TypeName="bigshopeModel.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="customer_stripe_id" ColumnName="customer_stripe_id" />
+                <ScalarProperty Name="customer_password" ColumnName="customer_password" />
+                <ScalarProperty Name="customer_zip" ColumnName="customer_zip" />
+                <ScalarProperty Name="customer_state" ColumnName="customer_state" />
+                <ScalarProperty Name="customer_city" ColumnName="customer_city" />
+                <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="customer_email" ColumnName="customer_email" />
+                <ScalarProperty Name="customer_surname" ColumnName="customer_surname" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="addToCart" FunctionName="bigshopeModel.Store.addToCart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.addToCart_Result">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+                <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+                <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showCustomers" FunctionName="bigshopeModel.Store.showCustomers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showCustomers_Result">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="customer_surname" ColumnName="customer_surname" />
+                <ScalarProperty Name="customer_email" ColumnName="customer_email" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+                <ScalarProperty Name="customer_city" ColumnName="customer_city" />
+                <ScalarProperty Name="customer_state" ColumnName="customer_state" />
+                <ScalarProperty Name="customer_zip" ColumnName="customer_zip" />
+                <ScalarProperty Name="customer_password" ColumnName="customer_password" />
+                <ScalarProperty Name="customer_stripe_id" ColumnName="customer_stripe_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="deleteCustomer" FunctionName="bigshopeModel.Store.deleteCustomer" />
+          <FunctionImportMapping FunctionImportName="loginCustomer" FunctionName="bigshopeModel.Store.loginCustomer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.loginCustomer_Result">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="customer_surname" ColumnName="customer_surname" />
+                <ScalarProperty Name="customer_email" ColumnName="customer_email" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+                <ScalarProperty Name="customer_city" ColumnName="customer_city" />
+                <ScalarProperty Name="customer_state" ColumnName="customer_state" />
+                <ScalarProperty Name="customer_zip" ColumnName="customer_zip" />
+                <ScalarProperty Name="customer_password" ColumnName="customer_password" />
+                <ScalarProperty Name="customer_stripe_id" ColumnName="customer_stripe_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="regCustomer" FunctionName="bigshopeModel.Store.regCustomer" />
+          <FunctionImportMapping FunctionImportName="showPrdByBrnds" FunctionName="bigshopeModel.Store.showPrdByBrnds">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showPrdByBrnds_Result">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+                <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+                <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showProdByBrnds" FunctionName="bigshopeModel.Store.showProdByBrnds">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showProdByBrnds_Result">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+                <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+                <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showProdByGen" FunctionName="bigshopeModel.Store.showProdByGen">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showProdByGen_Result">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+                <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+                <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="showProdByProc" FunctionName="bigshopeModel.Store.showProdByProc">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.showProdByProc_Result">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+                <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+                <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="searchProduct" FunctionName="bigshopeModel.Store.searchProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.searchProduct_Result">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+                <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+                <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="searchProducts" FunctionName="bigshopeModel.Store.searchProducts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.searchProducts_Result">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+                <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+                <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+                <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+                <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+                <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+                <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+                <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getOrder" FunctionName="bigshopeModel.Store.getOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bigshopeModel.getOrder_Result">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="order_prod_id" ColumnName="order_prod_id" />
+                <ScalarProperty Name="order_total_amount" ColumnName="order_total_amount" />
+                <ScalarProperty Name="order_time" ColumnName="order_time" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tblOrders">
+            <EntityTypeMapping TypeName="bigshopeModel.tblOrder">
+              <MappingFragment StoreEntitySet="tblOrder">
+                <ScalarProperty Name="order_time" ColumnName="order_time" />
+                <ScalarProperty Name="order_total_amount" ColumnName="order_total_amount" />
+                <ScalarProperty Name="order_prod_id" ColumnName="order_prod_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

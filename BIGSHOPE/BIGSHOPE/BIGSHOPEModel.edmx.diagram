@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="64bfa1bc34dc47e58d89a1e312ba857a" Name="Diagram1">
+        <EntityTypeShape EntityType="bigshopeModel.tblBrand" Width="1.5" PointX="0.625" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bigshopeModel.tblGen" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bigshopeModel.tblLogin" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bigshopeModel.tblProcessor" Width="1.5" PointX="2.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bigshopeModel.tblProduct" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="bigshopeModel.FK_tblProducts_tblBrands" ManuallyRouted="false" />
+        <AssociationConnector Association="bigshopeModel.FK_tblProducts_tblGen" ManuallyRouted="false" />
+        <AssociationConnector Association="bigshopeModel.FK_tblProducts_tblProcessor" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="bigshopeModel.tblCustomer" Width="1.5" PointX="5.75" PointY="3.875" />
+        <EntityTypeShape EntityType="bigshopeModel.tblOrder" Width="1.5" PointX="8.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

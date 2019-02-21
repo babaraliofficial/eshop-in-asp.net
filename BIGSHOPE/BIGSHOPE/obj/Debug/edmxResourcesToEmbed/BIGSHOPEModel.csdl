@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="bigshopeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblBrand">
+    <Key>
+      <PropertyRef Name="brnd_id" />
+    </Key>
+    <Property Name="brnd_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="brnd_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="brnd_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProducts_tblBrands" FromRole="tblBrands" ToRole="tblProducts" />
+  </EntityType>
+  <EntityType Name="tblGen">
+    <Key>
+      <PropertyRef Name="gen_id" />
+    </Key>
+    <Property Name="gen_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="gen_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="gen_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProducts_tblGen" FromRole="tblGen" ToRole="tblProducts" />
+  </EntityType>
+  <EntityType Name="tblLogin">
+    <Key>
+      <PropertyRef Name="adminID" />
+    </Key>
+    <Property Name="adminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="adminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adminPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adminStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tblProcessor">
+    <Key>
+      <PropertyRef Name="proc_id" />
+    </Key>
+    <Property Name="proc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="proc_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proc_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProducts_tblProcessor" FromRole="tblProcessor" ToRole="tblProducts" />
+  </EntityType>
+  <EntityType Name="tblProduct">
+    <Key>
+      <PropertyRef Name="prod_id" />
+    </Key>
+    <Property Name="prod_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="prod_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prod_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="prod_price" Type="Int32" Nullable="false" />
+    <Property Name="prod_image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prod_qnty" Type="Int32" Nullable="false" />
+    <Property Name="prod_ram" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="brand_key" Type="Int32" Nullable="false" />
+    <Property Name="processor_key" Type="Int32" Nullable="false" />
+    <Property Name="gen_key" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblBrand" Relationship="Self.FK_tblProducts_tblBrands" FromRole="tblProducts" ToRole="tblBrands" />
+    <NavigationProperty Name="tblGen" Relationship="Self.FK_tblProducts_tblGen" FromRole="tblProducts" ToRole="tblGen" />
+    <NavigationProperty Name="tblProcessor" Relationship="Self.FK_tblProducts_tblProcessor" FromRole="tblProducts" ToRole="tblProcessor" />
+  </EntityType>
+  <Association Name="FK_tblProducts_tblBrands">
+    <End Role="tblBrands" Type="Self.tblBrand" Multiplicity="1" />
+    <End Role="tblProducts" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBrands">
+        <PropertyRef Name="brnd_id" />
+      </Principal>
+      <Dependent Role="tblProducts">
+        <PropertyRef Name="brand_key" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProducts_tblGen">
+    <End Role="tblGen" Type="Self.tblGen" Multiplicity="1" />
+    <End Role="tblProducts" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGen">
+        <PropertyRef Name="gen_id" />
+      </Principal>
+      <Dependent Role="tblProducts">
+        <PropertyRef Name="gen_key" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProducts_tblProcessor">
+    <End Role="tblProcessor" Type="Self.tblProcessor" Multiplicity="1" />
+    <End Role="tblProducts" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProcessor">
+        <PropertyRef Name="proc_id" />
+      </Principal>
+      <Dependent Role="tblProducts">
+        <PropertyRef Name="processor_key" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bigshopeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblBrands" EntityType="Self.tblBrand" />
+    <EntitySet Name="tblGens" EntityType="Self.tblGen" />
+    <EntitySet Name="tblLogins" EntityType="Self.tblLogin" />
+    <EntitySet Name="tblProcessors" EntityType="Self.tblProcessor" />
+    <EntitySet Name="tblProducts" EntityType="Self.tblProduct" />
+    <AssociationSet Name="FK_tblProducts_tblBrands" Association="Self.FK_tblProducts_tblBrands">
+      <End Role="tblBrands" EntitySet="tblBrands" />
+      <End Role="tblProducts" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProducts_tblGen" Association="Self.FK_tblProducts_tblGen">
+      <End Role="tblGen" EntitySet="tblGens" />
+      <End Role="tblProducts" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProducts_tblProcessor" Association="Self.FK_tblProducts_tblProcessor">
+      <End Role="tblProcessor" EntitySet="tblProcessors" />
+      <End Role="tblProducts" EntitySet="tblProducts" />
+    </AssociationSet>
+    <FunctionImport Name="addProducts">
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="desc" Mode="In" Type="String" />
+      <Parameter Name="price" Mode="In" Type="String" />
+      <Parameter Name="img" Mode="In" Type="String" />
+      <Parameter Name="qnty" Mode="In" Type="Int32" />
+      <Parameter Name="ram" Mode="In" Type="String" />
+      <Parameter Name="brand" Mode="In" Type="Int32" />
+      <Parameter Name="process" Mode="In" Type="Int32" />
+      <Parameter Name="gen" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="adminLogin" ReturnType="Collection(bigshopeModel.adminLogin_Result)">
+      <Parameter Name="adminName" Mode="In" Type="String" />
+      <Parameter Name="adminPassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="showBrands" ReturnType="Collection(bigshopeModel.showBrands_Result)" />
+    <FunctionImport Name="showGen" ReturnType="Collection(bigshopeModel.showGen_Result)" />
+    <FunctionImport Name="showProcessor" ReturnType="Collection(bigshopeModel.showProcessor_Result)" />
+    <FunctionImport Name="showProducts" ReturnType="Collection(bigshopeModel.showProducts_Result)" />
+    <FunctionImport Name="deleteProduct">
+      <Parameter Name="prdID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="deleteBrnd">
+      <Parameter Name="brndid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="deleteGen">
+      <Parameter Name="genId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="deleteProc">
+      <Parameter Name="procId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="loginUser" ReturnType="Collection(bigshopeModel.loginUser_Result)">
+      <Parameter Name="usermail" Mode="In" Type="String" />
+      <Parameter Name="userpass" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="regUser">
+      <Parameter Name="userfirst" Mode="In" Type="String" />
+      <Parameter Name="usersecond" Mode="In" Type="String" />
+      <Parameter Name="usermail" Mode="In" Type="String" />
+      <Parameter Name="userpass" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="addBrands">
+      <Parameter Name="brndName" Mode="In" Type="String" />
+      <Parameter Name="brndDesc" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="addGenration">
+      <Parameter Name="genName" Mode="In" Type="String" />
+      <Parameter Name="genDesc" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="addProc">
+      <Parameter Name="procName" Mode="In" Type="String" />
+      <Parameter Name="procDesc" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="showClients" ReturnType="Collection(bigshopeModel.showClients_Result)" />
+    <FunctionImport Name="deleteClients">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="fn_Split" IsComposable="true" ReturnType="Collection(bigshopeModel.fn_Split_Result)">
+      <Parameter Name="text" Mode="In" Type="String" />
+      <Parameter Name="delimiter" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="showProdDetails" ReturnType="Collection(bigshopeModel.showProdDetails_Result)">
+      <Parameter Name="prodID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tblCustomers" EntityType="bigshopeModel.tblCustomer" />
+    <FunctionImport Name="addClient">
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="surname" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="phone" Mode="In" Type="String" />
+      <Parameter Name="address" Mode="In" Type="String" />
+      <Parameter Name="city" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="String" />
+      <Parameter Name="zip" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="stripeid" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="loginClient" ReturnType="Collection(bigshopeModel.loginClient_Result)">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="addToCart" ReturnType="Collection(bigshopeModel.addToCart_Result)">
+      <Parameter Name="itemList" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="showCustomers" ReturnType="Collection(bigshopeModel.showCustomers_Result)" />
+    <FunctionImport Name="deleteCustomer">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="loginCustomer" ReturnType="Collection(bigshopeModel.loginCustomer_Result)">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="pass" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="regCustomer">
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="surname" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="phone" Mode="In" Type="String" />
+      <Parameter Name="address" Mode="In" Type="String" />
+      <Parameter Name="city" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="String" />
+      <Parameter Name="zip" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="stripeid" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="showPrdByBrnds" ReturnType="Collection(bigshopeModel.showPrdByBrnds_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="showProdByBrnds" ReturnType="Collection(bigshopeModel.showProdByBrnds_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="showProdByGen" ReturnType="Collection(bigshopeModel.showProdByGen_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="showProdByProc" ReturnType="Collection(bigshopeModel.showProdByProc_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="searchProduct" ReturnType="Collection(bigshopeModel.searchProduct_Result)">
+      <Parameter Name="prodName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="searchProducts" ReturnType="Collection(bigshopeModel.searchProducts_Result)">
+      <Parameter Name="prodName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getOrder" ReturnType="Collection(bigshopeModel.getOrder_Result)" />
+    <EntitySet Name="tblOrders" EntityType="bigshopeModel.tblOrder" />
+  </EntityContainer>
+  <ComplexType Name="adminLogin_Result">
+    <Property Type="Int32" Name="adminID" Nullable="false" />
+    <Property Type="String" Name="adminName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="adminPassword" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="adminStatus" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="showBrands_Result">
+    <Property Type="Int32" Name="brnd_id" Nullable="false" />
+    <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="brnd_desc" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="showGen_Result">
+    <Property Type="Int32" Name="gen_id" Nullable="false" />
+    <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="gen_desc" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="showProcessor_Result">
+    <Property Type="Int32" Name="proc_id" Nullable="false" />
+    <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="proc_desc" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="showProducts_Result">
+    <Property Type="Int32" Name="prod_id" Nullable="false" />
+    <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="prod_price" Nullable="false" />
+    <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+    <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="loginUser_Result">
+    <Property Type="Int32" Name="user_id" Nullable="false" />
+    <Property Type="String" Name="user_first_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="user_second_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="user_email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="user_password" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="showClients_Result">
+    <Property Type="Int32" Name="user_id" Nullable="false" />
+    <Property Type="String" Name="user_first_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="user_second_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="user_email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="user_password" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="fn_Split_Result">
+    <Property Type="Int32" Name="position" Nullable="false" />
+    <Property Type="String" Name="value" Nullable="true" MaxLength="8000" />
+  </ComplexType>
+  <ComplexType Name="showProdDetails_Result">
+    <Property Type="Int32" Name="prod_id" Nullable="false" />
+    <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="prod_price" Nullable="false" />
+    <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+    <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="brand_key" Nullable="false" />
+    <Property Type="Int32" Name="processor_key" Nullable="false" />
+    <Property Type="Int32" Name="gen_key" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="tblCustomer">
+    <Key>
+      <PropertyRef Name="customer_id" />
+    </Key>
+    <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customer_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="customer_surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="customer_email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="customer_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="customer_address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="customer_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="customer_state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="customer_zip" Type="Int32" Nullable="false" />
+    <Property Name="customer_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="customer_stripe_id" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="loginClient_Result">
+    <Property Type="Int32" Name="customer_id" Nullable="false" />
+    <Property Type="String" Name="customer_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_surname" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customer_address" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="customer_city" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_state" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="customer_zip" Nullable="false" />
+    <Property Type="String" Name="customer_password" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customer_stripe_id" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="addToCart_Result">
+    <Property Type="Int32" Name="prod_id" Nullable="false" />
+    <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="prod_price" Nullable="false" />
+    <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+    <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="brand_key" Nullable="false" />
+    <Property Type="Int32" Name="processor_key" Nullable="false" />
+    <Property Type="Int32" Name="gen_key" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="showCustomers_Result">
+    <Property Type="Int32" Name="customer_id" Nullable="false" />
+    <Property Type="String" Name="customer_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_surname" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customer_address" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="customer_city" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_state" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="customer_zip" Nullable="false" />
+    <Property Type="String" Name="customer_password" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customer_stripe_id" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="loginCustomer_Result">
+    <Property Type="Int32" Name="customer_id" Nullable="false" />
+    <Property Type="String" Name="customer_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_surname" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customer_address" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="customer_city" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="customer_state" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="customer_zip" Nullable="false" />
+    <Property Type="String" Name="customer_password" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="customer_stripe_id" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="showPrdByBrnds_Result">
+    <Property Type="Int32" Name="prod_id" Nullable="false" />
+    <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="prod_price" Nullable="false" />
+    <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+    <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="brand_key" Nullable="false" />
+    <Property Type="Int32" Name="processor_key" Nullable="false" />
+    <Property Type="Int32" Name="gen_key" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="showProdByBrnds_Result">
+    <Property Type="Int32" Name="prod_id" Nullable="false" />
+    <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="prod_price" Nullable="false" />
+    <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+    <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="showProdByGen_Result">
+    <Property Type="Int32" Name="prod_id" Nullable="false" />
+    <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="prod_price" Nullable="false" />
+    <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+    <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="showProdByProc_Result">
+    <Property Type="Int32" Name="prod_id" Nullable="false" />
+    <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="prod_price" Nullable="false" />
+    <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+    <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="searchProduct_Result">
+    <Property Type="Int32" Name="prod_id" Nullable="false" />
+    <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="prod_price" Nullable="false" />
+    <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+    <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="brand_key" Nullable="false" />
+    <Property Type="Int32" Name="processor_key" Nullable="false" />
+    <Property Type="Int32" Name="gen_key" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="searchProducts_Result">
+    <Property Type="Int32" Name="prod_id" Nullable="false" />
+    <Property Type="String" Name="prod_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prod_desc" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="prod_price" Nullable="false" />
+    <Property Type="String" Name="prod_image" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="prod_qnty" Nullable="false" />
+    <Property Type="String" Name="prod_ram" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="brnd_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="proc_name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="gen_name" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getOrder_Result">
+    <Property Type="Int32" Name="order_id" Nullable="false" />
+    <Property Type="Int32" Name="order_prod_id" Nullable="false" />
+    <Property Type="String" Name="order_total_amount" Nullable="false" MaxLength="50" />
+    <Property Type="Binary" Name="order_time" Nullable="false" MaxLength="8" />
+  </ComplexType>
+  <EntityType Name="tblOrder">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_prod_id" Type="Int32" Nullable="false" />
+    <Property Name="order_total_amount" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="order_time" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+</Schema>

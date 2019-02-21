@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="bigshopeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblBrands">
+    <Key>
+      <PropertyRef Name="brnd_id" />
+    </Key>
+    <Property Name="brnd_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="brnd_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="brnd_desc" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblCustomer">
+    <Key>
+      <PropertyRef Name="customer_id" />
+    </Key>
+    <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customer_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="customer_surname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="customer_email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="customer_phone" Type="varchar" MaxLength="50" />
+    <Property Name="customer_address" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="customer_city" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="customer_state" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="customer_zip" Type="int" Nullable="false" />
+    <Property Name="customer_password" Type="varchar" MaxLength="50" />
+    <Property Name="customer_stripe_id" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblGen">
+    <Key>
+      <PropertyRef Name="gen_id" />
+    </Key>
+    <Property Name="gen_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="gen_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="gen_desc" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblLogin">
+    <Key>
+      <PropertyRef Name="adminID" />
+    </Key>
+    <Property Name="adminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="adminName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="adminPassword" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="adminStatus" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblOrder">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="order_prod_id" Type="int" Nullable="false" />
+    <Property Name="order_total_amount" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="order_time" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblProcessor">
+    <Key>
+      <PropertyRef Name="proc_id" />
+    </Key>
+    <Property Name="proc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="proc_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="proc_desc" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblProducts">
+    <Key>
+      <PropertyRef Name="prod_id" />
+    </Key>
+    <Property Name="prod_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="prod_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="prod_desc" Type="varchar" MaxLength="50" />
+    <Property Name="prod_price" Type="int" Nullable="false" />
+    <Property Name="prod_image" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="prod_qnty" Type="int" Nullable="false" />
+    <Property Name="prod_ram" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="brand_key" Type="int" Nullable="false" />
+    <Property Name="processor_key" Type="int" Nullable="false" />
+    <Property Name="gen_key" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_tblProducts_tblBrands">
+    <End Role="tblBrands" Type="Self.tblBrands" Multiplicity="1" />
+    <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBrands">
+        <PropertyRef Name="brnd_id" />
+      </Principal>
+      <Dependent Role="tblProducts">
+        <PropertyRef Name="brand_key" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProducts_tblGen">
+    <End Role="tblGen" Type="Self.tblGen" Multiplicity="1" />
+    <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGen">
+        <PropertyRef Name="gen_id" />
+      </Principal>
+      <Dependent Role="tblProducts">
+        <PropertyRef Name="gen_key" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProducts_tblProcessor">
+    <End Role="tblProcessor" Type="Self.tblProcessor" Multiplicity="1" />
+    <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProcessor">
+        <PropertyRef Name="proc_id" />
+      </Principal>
+      <Dependent Role="tblProducts">
+        <PropertyRef Name="processor_key" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="addBrands" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="brndName" Type="varchar" Mode="In" />
+    <Parameter Name="brndDesc" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="addGenration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="genName" Type="varchar" Mode="In" />
+    <Parameter Name="genDesc" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="addProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="procName" Type="varchar" Mode="In" />
+    <Parameter Name="procDesc" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="addProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="desc" Type="varchar" Mode="In" />
+    <Parameter Name="price" Type="varchar" Mode="In" />
+    <Parameter Name="img" Type="varchar" Mode="In" />
+    <Parameter Name="qnty" Type="int" Mode="In" />
+    <Parameter Name="ram" Type="varchar" Mode="In" />
+    <Parameter Name="brand" Type="int" Mode="In" />
+    <Parameter Name="process" Type="int" Mode="In" />
+    <Parameter Name="gen" Type="int" Mode="In" />
+  </Function>
+  <Function Name="addToCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="itemList" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="adminLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="adminName" Type="varchar" Mode="In" />
+    <Parameter Name="adminPassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="deleteBrnd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="brndid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="deleteCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="deleteGen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="genId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="deleteProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="procId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="deleteProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prdID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fn_Split" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="text" Type="varchar" Mode="In" />
+    <Parameter Name="delimiter" Type="varchar" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="position" Type="int" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="8000" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="format_currency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+    <Parameter Name="monetary_value" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="getOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="loginCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="pass" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="regCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="surname" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="phone" Type="varchar" Mode="In" />
+    <Parameter Name="address" Type="varchar" Mode="In" />
+    <Parameter Name="city" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="varchar" Mode="In" />
+    <Parameter Name="zip" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar" Mode="In" />
+    <Parameter Name="stripeid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="searchProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prodName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="searchProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prodName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="showBrands" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="showCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="showGen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="showPrdByBrnds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="showProcessor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="showProdByBrnds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="showProdByGen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="showProdByProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="showProdDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prodID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="showProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="bigshopeModelStoreContainer">
+    <EntitySet Name="tblBrands" EntityType="Self.tblBrands" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGen" EntityType="Self.tblGen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblLogin" EntityType="Self.tblLogin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblProcessor" EntityType="Self.tblProcessor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblProducts" EntityType="Self.tblProducts" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblProducts_tblBrands" Association="Self.FK_tblProducts_tblBrands">
+      <End Role="tblBrands" EntitySet="tblBrands" />
+      <End Role="tblProducts" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProducts_tblGen" Association="Self.FK_tblProducts_tblGen">
+      <End Role="tblGen" EntitySet="tblGen" />
+      <End Role="tblProducts" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProducts_tblProcessor" Association="Self.FK_tblProducts_tblProcessor">
+      <End Role="tblProcessor" EntitySet="tblProcessor" />
+      <End Role="tblProducts" EntitySet="tblProducts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

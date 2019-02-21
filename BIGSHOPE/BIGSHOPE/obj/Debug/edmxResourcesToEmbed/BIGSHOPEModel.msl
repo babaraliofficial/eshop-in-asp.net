@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="bigshopeModelStoreContainer" CdmEntityContainer="bigshopeEntities">
+    <EntitySetMapping Name="tblBrands">
+      <EntityTypeMapping TypeName="bigshopeModel.tblBrand">
+        <MappingFragment StoreEntitySet="tblBrands">
+          <ScalarProperty Name="brnd_id" ColumnName="brnd_id" />
+          <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+          <ScalarProperty Name="brnd_desc" ColumnName="brnd_desc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGens">
+      <EntityTypeMapping TypeName="bigshopeModel.tblGen">
+        <MappingFragment StoreEntitySet="tblGen">
+          <ScalarProperty Name="gen_id" ColumnName="gen_id" />
+          <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+          <ScalarProperty Name="gen_desc" ColumnName="gen_desc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLogins">
+      <EntityTypeMapping TypeName="bigshopeModel.tblLogin">
+        <MappingFragment StoreEntitySet="tblLogin">
+          <ScalarProperty Name="adminID" ColumnName="adminID" />
+          <ScalarProperty Name="adminName" ColumnName="adminName" />
+          <ScalarProperty Name="adminPassword" ColumnName="adminPassword" />
+          <ScalarProperty Name="adminStatus" ColumnName="adminStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblProcessors">
+      <EntityTypeMapping TypeName="bigshopeModel.tblProcessor">
+        <MappingFragment StoreEntitySet="tblProcessor">
+          <ScalarProperty Name="proc_id" ColumnName="proc_id" />
+          <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+          <ScalarProperty Name="proc_desc" ColumnName="proc_desc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblProducts">
+      <EntityTypeMapping TypeName="bigshopeModel.tblProduct">
+        <MappingFragment StoreEntitySet="tblProducts">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+          <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+          <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="addProducts" FunctionName="bigshopeModel.Store.addProducts" />
+    <FunctionImportMapping FunctionImportName="adminLogin" FunctionName="bigshopeModel.Store.adminLogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.adminLogin_Result">
+          <ScalarProperty Name="adminID" ColumnName="adminID" />
+          <ScalarProperty Name="adminName" ColumnName="adminName" />
+          <ScalarProperty Name="adminPassword" ColumnName="adminPassword" />
+          <ScalarProperty Name="adminStatus" ColumnName="adminStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="showBrands" FunctionName="bigshopeModel.Store.showBrands">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showBrands_Result">
+          <ScalarProperty Name="brnd_id" ColumnName="brnd_id" />
+          <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+          <ScalarProperty Name="brnd_desc" ColumnName="brnd_desc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="showGen" FunctionName="bigshopeModel.Store.showGen">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showGen_Result">
+          <ScalarProperty Name="gen_id" ColumnName="gen_id" />
+          <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+          <ScalarProperty Name="gen_desc" ColumnName="gen_desc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="showProcessor" FunctionName="bigshopeModel.Store.showProcessor">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showProcessor_Result">
+          <ScalarProperty Name="proc_id" ColumnName="proc_id" />
+          <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+          <ScalarProperty Name="proc_desc" ColumnName="proc_desc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="showProducts" FunctionName="bigshopeModel.Store.showProducts">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showProducts_Result">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+          <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+          <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="deleteProduct" FunctionName="bigshopeModel.Store.deleteProduct" />
+    <FunctionImportMapping FunctionImportName="deleteBrnd" FunctionName="bigshopeModel.Store.deleteBrnd" />
+    <FunctionImportMapping FunctionImportName="deleteGen" FunctionName="bigshopeModel.Store.deleteGen" />
+    <FunctionImportMapping FunctionImportName="deleteProc" FunctionName="bigshopeModel.Store.deleteProc" />
+    <FunctionImportMapping FunctionImportName="addBrands" FunctionName="bigshopeModel.Store.addBrands" />
+    <FunctionImportMapping FunctionImportName="addGenration" FunctionName="bigshopeModel.Store.addGenration" />
+    <FunctionImportMapping FunctionImportName="addProc" FunctionName="bigshopeModel.Store.addProc" />
+    <FunctionImportMapping FunctionImportName="fn_Split" FunctionName="bigshopeModel.Store.fn_Split">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.fn_Split_Result">
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="value" ColumnName="value" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="showProdDetails" FunctionName="bigshopeModel.Store.showProdDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showProdDetails_Result">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+          <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+          <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tblCustomers">
+      <EntityTypeMapping TypeName="bigshopeModel.tblCustomer">
+        <MappingFragment StoreEntitySet="tblCustomer">
+          <ScalarProperty Name="customer_stripe_id" ColumnName="customer_stripe_id" />
+          <ScalarProperty Name="customer_password" ColumnName="customer_password" />
+          <ScalarProperty Name="customer_zip" ColumnName="customer_zip" />
+          <ScalarProperty Name="customer_state" ColumnName="customer_state" />
+          <ScalarProperty Name="customer_city" ColumnName="customer_city" />
+          <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+          <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+          <ScalarProperty Name="customer_email" ColumnName="customer_email" />
+          <ScalarProperty Name="customer_surname" ColumnName="customer_surname" />
+          <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="addToCart" FunctionName="bigshopeModel.Store.addToCart">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.addToCart_Result">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+          <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+          <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="showCustomers" FunctionName="bigshopeModel.Store.showCustomers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showCustomers_Result">
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+          <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+          <ScalarProperty Name="customer_surname" ColumnName="customer_surname" />
+          <ScalarProperty Name="customer_email" ColumnName="customer_email" />
+          <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+          <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+          <ScalarProperty Name="customer_city" ColumnName="customer_city" />
+          <ScalarProperty Name="customer_state" ColumnName="customer_state" />
+          <ScalarProperty Name="customer_zip" ColumnName="customer_zip" />
+          <ScalarProperty Name="customer_password" ColumnName="customer_password" />
+          <ScalarProperty Name="customer_stripe_id" ColumnName="customer_stripe_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="deleteCustomer" FunctionName="bigshopeModel.Store.deleteCustomer" />
+    <FunctionImportMapping FunctionImportName="loginCustomer" FunctionName="bigshopeModel.Store.loginCustomer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.loginCustomer_Result">
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+          <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+          <ScalarProperty Name="customer_surname" ColumnName="customer_surname" />
+          <ScalarProperty Name="customer_email" ColumnName="customer_email" />
+          <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+          <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+          <ScalarProperty Name="customer_city" ColumnName="customer_city" />
+          <ScalarProperty Name="customer_state" ColumnName="customer_state" />
+          <ScalarProperty Name="customer_zip" ColumnName="customer_zip" />
+          <ScalarProperty Name="customer_password" ColumnName="customer_password" />
+          <ScalarProperty Name="customer_stripe_id" ColumnName="customer_stripe_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="regCustomer" FunctionName="bigshopeModel.Store.regCustomer" />
+    <FunctionImportMapping FunctionImportName="showPrdByBrnds" FunctionName="bigshopeModel.Store.showPrdByBrnds">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showPrdByBrnds_Result">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+          <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+          <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="showProdByBrnds" FunctionName="bigshopeModel.Store.showProdByBrnds">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showProdByBrnds_Result">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+          <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+          <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="showProdByGen" FunctionName="bigshopeModel.Store.showProdByGen">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showProdByGen_Result">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+          <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+          <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="showProdByProc" FunctionName="bigshopeModel.Store.showProdByProc">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.showProdByProc_Result">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+          <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+          <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="searchProduct" FunctionName="bigshopeModel.Store.searchProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.searchProduct_Result">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brand_key" ColumnName="brand_key" />
+          <ScalarProperty Name="processor_key" ColumnName="processor_key" />
+          <ScalarProperty Name="gen_key" ColumnName="gen_key" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="searchProducts" FunctionName="bigshopeModel.Store.searchProducts">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.searchProducts_Result">
+          <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+          <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+          <ScalarProperty Name="prod_desc" ColumnName="prod_desc" />
+          <ScalarProperty Name="prod_price" ColumnName="prod_price" />
+          <ScalarProperty Name="prod_image" ColumnName="prod_image" />
+          <ScalarProperty Name="prod_qnty" ColumnName="prod_qnty" />
+          <ScalarProperty Name="prod_ram" ColumnName="prod_ram" />
+          <ScalarProperty Name="brnd_name" ColumnName="brnd_name" />
+          <ScalarProperty Name="proc_name" ColumnName="proc_name" />
+          <ScalarProperty Name="gen_name" ColumnName="gen_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getOrder" FunctionName="bigshopeModel.Store.getOrder">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="bigshopeModel.getOrder_Result">
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="order_prod_id" ColumnName="order_prod_id" />
+          <ScalarProperty Name="order_total_amount" ColumnName="order_total_amount" />
+          <ScalarProperty Name="order_time" ColumnName="order_time" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tblOrders">
+      <EntityTypeMapping TypeName="bigshopeModel.tblOrder">
+        <MappingFragment StoreEntitySet="tblOrder">
+          <ScalarProperty Name="order_time" ColumnName="order_time" />
+          <ScalarProperty Name="order_total_amount" ColumnName="order_total_amount" />
+          <ScalarProperty Name="order_prod_id" ColumnName="order_prod_id" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
